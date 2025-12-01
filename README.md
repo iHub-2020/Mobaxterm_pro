@@ -97,7 +97,6 @@ sudo apt-get install docker-compose-plugin
 sudo mkdir -p /opt/mobaxterm_pro_gen
 ```
 2. **将目录的所有权修改为 user 用户和 user 组 (关键步骤)**
-# 这样 user 用户以后就可以直接操作该目录，无需 sudo
 ```bash
 sudo chown -R jim:jim /opt/mobaxterm_pro_gen
 ```
