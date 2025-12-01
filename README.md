@@ -71,8 +71,8 @@ docker build -t mobaxterm-pro-keygen-image:latest .
 ---
 # 部署容器
 推荐在Portainer 中通过stack 方式部署：
-```bash
-yaml
+
+```yaml
 version: '3.8'
 
 services:
