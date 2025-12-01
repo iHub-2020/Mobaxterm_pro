@@ -1,139 +1,330 @@
-<!-- 
-Title: MobaXterm Pro KeyGen
-Version: 1.0.0
-Author: Reyanmatic
-Description: A web-based tool to generate MobaXterm Professional license keys.
--->
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MobaXterm Pro KeyGen</title>
+    <title>MobaXterm KeyGen</title>
     <style>
+        :root {
+            /* 默认亮色模式 (Light Mode) - 保持清爽或原版风格 */
+            --bg-color: #6a75ca; /* 原图类似的紫色背景，或者改为 #f0f2f5 */
+            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-sub: #666666;
+            --input-bg: #ffffff;
+            --input-border: #ddd;
+            --input-text: #333;
+            --btn-bg: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            --btn-text: #fff;
+            --warning-bg: #fff3cd;
+            --warning-text: #856404;
+            --shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        /* 暗黑模式 (Dark Mode) - 严格按照要求：暗黑色背景 + 暗黑色对话框 */
+        [data-theme="dark"] {
+            --bg-color: #121212; /* 纯暗黑背景 */
+            --bg-gradient: none; /* 移除渐变，保持纯黑 */
+            --card-bg: #1e1e1e; /* 对话框也是暗色 */
+            --text-main: #e0e0e0;
+            --text-sub: #a0a0a0;
+            --input-bg: #2d2d2d;
+            --input-border: #444;
+            --input-text: #fff;
+            --btn-bg: linear-gradient(90deg, #5a6fd6 0%, #684291 100%);
+            --btn-text: #eee;
+            --warning-bg: #3e3722; /* 暗黄，避免刺眼 */
+            --warning-text: #d4b655;
+            --shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; transition: background-color 0.3s, color 0.3s; }
+
         body {
-            margin: 0;
-            padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            height: 100vh;
+            background: var(--bg-color);
+            background-image: var(--bg-gradient);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #333;
+            padding: 20px;
         }
+
+        /* 右上角控制按钮区域 */
+        .top-controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            backdrop-filter: blur(5px);
+            transition: all 0.2s;
+        }
+        
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* 暗黑模式下按钮样式调整以适应黑色背景 */
+        [data-theme="dark"] .control-btn {
+            background: #333;
+            border-color: #555;
+            color: #ddd;
+        }
+
         .container {
-            background-color: #f8f9fa; /* 保持卡片为亮色，形成对比 */
+            background-color: var(--card-bg);
             padding: 40px;
             border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            box-shadow: var(--shadow);
             width: 100%;
-            max-width: 400px;
+            max-width: 450px;
             text-align: center;
         }
+
         h1 {
-            color: #5a4bcf;
+            color: #5a67d8; /* 保持品牌色，或者在暗黑模式下调整 */
             margin-bottom: 10px;
+            font-size: 28px;
         }
+        
+        [data-theme="dark"] h1 {
+            color: #8c9eff;
+        }
+
         p.subtitle {
-            color: #666;
-            margin-bottom: 30px;
-            font-size: 0.9em;
+            color: var(--text-sub);
+            margin-bottom: 25px;
+            font-size: 14px;
         }
+
         .disclaimer {
-            background-color: #fff3cd;
-            color: #856404;
-            border: 1px solid #ffeeba;
-            padding: 10px;
-            border-radius: 5px;
-            font-size: 0.85em;
-            margin-bottom: 20px;
+            background-color: var(--warning-bg);
+            color: var(--warning-text);
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            margin-bottom: 25px;
+            line-height: 1.5;
             text-align: left;
         }
+
         .form-group {
             margin-bottom: 20px;
             text-align: left;
         }
+
         label {
             display: block;
-            margin-bottom: 5px;
-            color: #555;
-            font-weight: bold;
+            margin-bottom: 8px;
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 14px;
         }
-        input[type="text"], input[type="number"] {
+
+        input[type="text"],
+        input[type="number"] {
             width: 100%;
             padding: 12px;
-            border: 1px solid #ddd;
+            border: 1px solid var(--input-border);
             border-radius: 8px;
-            box-sizing: border-box; /* 确保padding不增加宽度 */
             font-size: 14px;
-            transition: border-color 0.3s;
-        }
-        input[type="text"]:focus, input[type="number"]:focus {
-            border-color: #764ba2;
+            background-color: var(--input-bg);
+            color: var(--input-text);
             outline: none;
         }
-        button {
+
+        input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .btn-submit {
             width: 100%;
-            padding: 12px;
-            background: linear-gradient(to right, #667eea, #764ba2);
-            color: white;
+            padding: 14px;
+            background: var(--btn-bg);
+            color: var(--btn-text);
             border: none;
             border-radius: 8px;
             font-size: 16px;
+            font-weight: bold;
             cursor: pointer;
-            transition: opacity 0.3s;
+            margin-top: 10px;
+            transition: transform 0.1s;
         }
-        button:hover {
-            opacity: 0.9;
+
+        .btn-submit:active {
+            transform: scale(0.98);
         }
+
         .footer {
-            margin-top: 20px;
-            font-size: 0.8em;
-            color: #888;
-        }
-        .footer a {
-            color: #5a4bcf;
-            text-decoration: none;
-            display: inline-flex;
+            margin-top: 25px;
+            font-size: 13px;
+            color: var(--text-sub);
+            display: flex;
+            justify-content: center;
             align-items: center;
+            gap: 5px;
         }
-        .footer a:hover {
-            text-decoration: underline;
+
+        .footer a {
+            color: #5a67d8;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
+        
+        [data-theme="dark"] .footer a {
+            color: #8c9eff;
+        }
+
+        /* SVG Icons */
+        .icon { width: 16px; height: 16px; fill: currentColor; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>MobaXterm 密钥生成器</h1>
-        <p class="subtitle">生成您的 MobaXterm 许可证密钥</p>
 
-        <div class="disclaimer">
-            免责声明：该项目仅用于个人学习测试，禁止任何商业用途！
+    <!-- 右上角切换按钮 -->
+    <div class="top-controls">
+        <button class="control-btn" onclick="toggleTheme()" id="themeBtn">
+            🌙 Dark
+        </button>
+        <button class="control-btn" onclick="toggleLang()" id="langBtn">
+            English
+        </button>
+    </div>
+
+    <div class="container">
+        <h1 id="txt-title">MobaXterm 密钥生成器</h1>
+        <p class="subtitle" id="txt-subtitle">生成您的 MobaXterm Professional 许可证密钥</p>
+
+        <div class="disclaimer" id="txt-disclaimer">
+            免责声明：本项目仅用于个人学习测试，禁止任何商业用途！请支持正版。
         </div>
 
-        <form id="keygenForm" action="/gen" method="get">
+        <form action="/generate" method="POST">
             <div class="form-group">
-                <label for="name">姓名</label>
-                <input type="text" id="name" name="name" placeholder="请输入您的姓名" required>
+                <label for="username" id="lbl-name">姓名</label>
+                <input type="text" id="username" name="username" placeholder="请输入您的姓名" required>
             </div>
+
             <div class="form-group">
-                <label for="ver">版本</label>
-                <input type="text" id="ver" name="ver" placeholder="请输入版本号 (例如: 25.2)" required>
+                <label for="version" id="lbl-version">版本</label>
+                <input type="text" id="version" name="version" placeholder="请输入版本号 (例如: 25.2)" required>
             </div>
+
             <div class="form-group">
-                <label for="count">用户数</label>
-                <input type="number" id="count" name="count" value="1" min="1" required>
+                <label for="users" id="lbl-users">用户数</label>
+                <input type="number" id="users" name="users" value="1" min="1" required>
             </div>
-            <button type="submit">生成密钥</button>
+
+            <button type="submit" class="btn-submit" id="btn-generate">生成密钥</button>
         </form>
 
         <div class="footer">
             <a href="https://github.com/iHub-2020/Mobaxterm_pro" target="_blank">
-                <svg height="16" viewBox="0 0 16 16" version="1.1" width="16" aria-hidden="true" style="margin-right: 5px; fill: currentColor;"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
-                在 GitHub 上查看
+                <svg class="icon" viewBox="0 0 16 16" version="1.1" aria-hidden="true"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+                <span id="txt-footer">在 GitHub 上查看</span>
             </a>
         </div>
     </div>
+
+    <script>
+        // 语言包配置
+        const i18n = {
+            zh: {
+                title: "MobaXterm 密钥生成器",
+                subtitle: "生成您的 MobaXterm Professional 许可证密钥",
+                disclaimer: "免责声明：本项目仅用于个人学习测试，禁止任何商业用途！请支持正版。",
+                lblName: "姓名",
+                phName: "请输入您的姓名",
+                lblVersion: "版本",
+                phVersion: "请输入版本号 (例如: 25.2)",
+                lblUsers: "用户数",
+                btnGenerate: "生成密钥",
+                footer: "在 GitHub 上查看",
+                themeBtn: "🌙 切换模式",
+                langBtn: "English"
+            },
+            en: {
+                title: "MobaXterm KeyGen",
+                subtitle: "Generate license key for MobaXterm Professional",
+                disclaimer: "Disclaimer: This project is for personal learning and testing only. Commercial use is prohibited!",
+                lblName: "Name",
+                phName: "Enter your name",
+                lblVersion: "Version",
+                phVersion: "Enter version (e.g., 25.2)",
+                lblUsers: "Number of Users",
+                btnGenerate: "Generate Key",
+                footer: "View on GitHub",
+                themeBtn: "🌙 Toggle Theme",
+                langBtn: "中文"
+            }
+        };
+
+        let currentLang = 'zh';
+        let currentTheme = 'light';
+
+        function toggleTheme() {
+            const body = document.body;
+            const themeBtn = document.getElementById('themeBtn');
+            
+            if (currentTheme === 'light') {
+                body.setAttribute('data-theme', 'dark');
+                currentTheme = 'dark';
+                themeBtn.innerText = currentLang === 'zh' ? "☀️ 亮色模式" : "☀️ Light Mode";
+            } else {
+                body.removeAttribute('data-theme');
+                currentTheme = 'light';
+                themeBtn.innerText = currentLang === 'zh' ? "🌙 暗黑模式" : "🌙 Dark Mode";
+            }
+        }
+
+        function toggleLang() {
+            currentLang = currentLang === 'zh' ? 'en' : 'zh';
+            updateTexts();
+        }
+
+        function updateTexts() {
+            const t = i18n[currentLang];
+            
+            document.getElementById('txt-title').innerText = t.title;
+            document.getElementById('txt-subtitle').innerText = t.subtitle;
+            document.getElementById('txt-disclaimer').innerText = t.disclaimer;
+            
+            document.getElementById('lbl-name').innerText = t.lblName;
+            document.getElementById('username').placeholder = t.phName;
+            
+            document.getElementById('lbl-version').innerText = t.lblVersion;
+            document.getElementById('version').placeholder = t.phVersion;
+            
+            document.getElementById('lbl-users').innerText = t.lblUsers;
+            document.getElementById('btn-generate').innerText = t.btnGenerate;
+            document.getElementById('txt-footer').innerText = t.footer;
+
+            // 更新按钮文字
+            document.getElementById('langBtn').innerText = t.langBtn;
+            
+            // 更新主题按钮文字，保持当前图标状态
+            const icon = currentTheme === 'light' ? "🌙" : "☀️";
+            const modeText = currentTheme === 'light' 
+                ? (currentLang === 'zh' ? "暗黑模式" : "Dark Mode")
+                : (currentLang === 'zh' ? "亮色模式" : "Light Mode");
+            document.getElementById('themeBtn').innerText = `${icon} ${modeText}`;
+        }
+    </script>
 </body>
 </html>
