@@ -92,11 +92,29 @@ sudo apt-get install docker-compose-plugin
 ```
 
 获取项目
+1. **创建目录 (需要 sudo 权限)**
 ```bash
-git clone https://github.com/iHub-2020/Mobaxterm_pro.git
-cd Mobaxterm_pro
+sudo mkdir -p /opt/mobaxterm_pro_gen
 ```
-创建 docker-compose.yml 文件
+2. **将目录的所有权修改为 user 用户和 user 组 (关键步骤)**
+# 这样 user 用户以后就可以直接操作该目录，无需 sudo
+```bash
+sudo chown -R jim:jim /opt/mobaxterm_pro_gen
+```
+3. **(可选) 设置目录权限为 755，确保其他用户可读但不可写**
+```bash
+sudo chmod 755 /opt/mobaxterm_pro_gen
+```
+4. **获取项目代码**
+```bash
+cd /opt/mobaxterm_pro_gen
+```
+5. **克隆代码到“当前目录”(注意命令最后有一个点 .)**
+```bash
+git clone https://github.com/iHub-2020/Mobaxterm_pro.git .
+```
+
+6. **创建 docker-compose.yml 文件**
 在项目根目录下创建一个名为 docker-compose.yml 的文件：
 ```bash
 nano docker-compose.yml
