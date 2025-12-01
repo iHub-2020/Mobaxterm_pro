@@ -91,13 +91,13 @@ services:
 
 ---
 # 使用方法
-**打开部署好的网页**
-**在 姓名 栏输入任意名称**
-**在 版本 栏输入您的 MobaXterm 版本号 (例如 25.0, 24.2)**
-**点击 生成密钥 按钮**
-**浏览器会自动下载一个名为 Custom.mxtpro 的文件**
-**激活：将下载的文件直接放入 MobaXterm 软件的安装目录（即 MobaXterm.exe 所在的文件夹），重启软件即可**
+* 打开部署好的网页
+* 在 姓名 栏输入任意名称
+* 在 版本 栏输入您的 MobaXterm 版本号 (例如 25.0, 24.2)
+* 点击 生成密钥 按钮
+* 浏览器会自动下载一个名为 Custom.mxtpro 的文件
+* 激活：将下载的文件直接放入 MobaXterm 软件的安装目录（即 MobaXterm.exe 所在的文件夹），重启软件即可
 ---
 
 # 致谢
-## 核心算法参考自：https://github.com/flygon2018/MobaXterm-keygen
+### 核心算法参考自：https://github.com/flygon2018/MobaXterm-keygen
