@@ -38,34 +38,46 @@ sudo systemctl start docker
 sudo systemctl enable docker
 ```
 ---
-# 创建目录
+
+
+# 构建镜像
+
+### 创建目录
+```bash
 sudo mkdir p /opt/{mobaxterm-pro-keygen,app}
 sudo chown -R 1000:1000 /opt/mobaxterm_pro_keygen
 sudo chown -R 1000:1000 /opt/mobaxterm_pro_keygen
-
-# 构建镜像
+```
 1. **进入目录**
+```bash
 cd /opt
-
-2. **用 sudo 克隆仓库**
+```
+3. **用 sudo 克隆仓库**
+```bash
 sudo git clone https://github.com/iHub-2020/mobaxterm-pro-keygen.git
+```
 
-3. **【关键步骤】将文件夹的所有权修改为你的用户**
+4. **【关键步骤】将文件夹的所有权修改为你的用户**
+```bash
 sudo chown -R 1000:1000 /opt/mobaxterm-pro-keygen
+```
 
-4. **确认一下文件都在**
+5. **确认一下文件都在**
+```bash
 ls -l /opt/mobaxterm-pro-keygen
+```
 
-进入目录：
+6. **进入目录**
+```bash
 cd /opt/mobaxterm-pro-keygen/
+```
 
-构建镜像（给它起个名字）：
-执行下面这条命令，注意最后有个点 . 代表当前目录。
-
+7. **构建镜像（注意最后有个点 . 代表当前目录）**
 ```bash
 docker build -t mobaxterm-pro-keygen-image:latest .
 ```
-
+---
+# 部署容器
 推荐在Portainer 中通过stack 方式部署：
 ```bash
 yaml
@@ -84,7 +96,6 @@ services:
       
     restart: always
 ```
-
 ---
 # 使用方法
 **打开部署好的网页**
