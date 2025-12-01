@@ -1,6 +1,11 @@
-FROM python:3.6-slim
+# Title: MobaXterm Pro KeyGen Dockerfile
+# Version: 1.0.0
+# Author: Reyanmatic
+# Description: Dockerfile to build the MobaXterm KeyGen container.
 
-MAINTAINER malaohu <tua@live.cn>
+FROM python:3.9-slim
+
+MAINTAINER Reyanmatic
 
 WORKDIR /usr/src/app
 
